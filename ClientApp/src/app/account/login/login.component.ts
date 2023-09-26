@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
-import { User } from 'src/app/shared/models/user';
+import { User } from 'src/app/shared/models/account/user';
 import { take } from 'rxjs';
 
 @Component({
@@ -72,5 +72,11 @@ export class LoginComponent implements OnInit {
         },
       });
     }
+  }
+
+  resendEmailConfirmationLink() {
+    this.router.navigateByUrl(
+      '/account/send-email/resend-email-confirmation-link'
+    );
   }
 }
