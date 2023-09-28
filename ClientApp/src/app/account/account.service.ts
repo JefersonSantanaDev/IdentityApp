@@ -8,6 +8,8 @@ import { Login } from '../shared/models/account/login';
 import { User } from '../shared/models/account/user';
 import { ReplaySubject, map, of } from 'rxjs';
 import { ConfirmEmail } from '../shared/models/account/confirmEmail';
+import { RegisterWithExternal } from '../shared/models/account/registerWithExternal';
+import { LoginWithExternal } from '../shared/models/account/loginWithExternal';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +54,21 @@ export class AccountService {
       );
   }
 
+  loginWithThirdParty(model: LoginWithExternal) {
+    return this.http
+      .post<User>(
+        `${environment.appUrl}/api/account/login-with-third-party`,
+        model
+      )
+      .pipe(
+        map((user: User) => {
+          if (user) {
+            this.setUser(user);
+          }
+        })
+      );
+  }
+
   logout() {
     localStorage.removeItem(environment.userKey);
     this.userSource.next(null);
@@ -60,6 +77,19 @@ export class AccountService {
 
   register(model: Register) {
     return this.http.post(`${environment.appUrl}/api/account/register`, model);
+  }
+
+  registerWithThirdParty(model: RegisterWithExternal) {
+    return this.http
+      .post<User>(
+        `${environment.appUrl}/api/account/register-with-third-party`,
+        model
+      )
+      .pipe(
+        map((user: User) => {
+          this.setUser(user);
+        })
+      );
   }
 
   confirmEmail(model: ConfirmEmail) {
