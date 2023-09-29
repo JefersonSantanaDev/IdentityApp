@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Api.Data.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(context))]
     [Migration("20230926191609_addingProviderIntoUserTable")]
     partial class addingProviderIntoUserTable
     {
