@@ -136,7 +136,12 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+// is going to look for index.html and serving our application using index.html
 app.MapControllers();
+app.MapFallbackToController("Index", "Fallback");
 
 #region ContextSeed
 using var scope = app.Services.CreateScope();
